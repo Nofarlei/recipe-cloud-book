@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recipe Cloud Book</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <section class="hero-panel">
+      <div class="hero-copy">
+        <p class="eyebrow">Recipe Cloud Book</p>
+        <h1>Save, organize and manage your favorite recipes in the cloud.</h1>
+        <p class="hero-description">Capture meal ideas, track ingredients, and keep every recipe beautifully stored in one warm, modern space.</p>
+      </div>
+      <div class="search-group">
+        <label for="searchInput">Search recipes</label>
+        <input id="searchInput" type="search" placeholder="Search by name or category" />
+      </div>
+    </section>
+
+    <section class="content-grid">
+      <article class="recipe-form-panel">
+        <h2>Add a new recipe</h2>
+        <form id="recipeForm">
+          <div class="form-row">
+            <label for="recipeName">Recipe name</label>
+            <input id="recipeName" name="name" type="text" placeholder="Grandma's pancakes" required />
+          </div>
+
+          <div class="form-row half-width">
+            <label for="recipeCategory">Category</label>
+            <select id="recipeCategory" name="category" required>
+              <option value="Breakfast">Breakfast</option>
+              <option value="Lunch">Lunch</option>
+              <option value="Dinner">Dinner</option>
+              <option value="Dessert">Dessert</option>
+              <option value="Snack">Snack</option>
+            </select>
+          </div>
+
+          <div class="form-row half-width">
+            <label for="prepTime">Preparation time</label>
+            <input id="prepTime" name="prepTime" type="text" placeholder="30 min" required />
+          </div>
+
+          <div class="form-row">
+            <label for="ingredients">Ingredients</label>
+            <textarea id="ingredients" name="ingredients" rows="4" placeholder="List ingredients separated by commas" required></textarea>
+          </div>
+
+          <div class="form-row">
+            <label for="instructions">Instructions</label>
+            <textarea id="instructions" name="instructions" rows="5" placeholder="Step-by-step directions" required></textarea>
+          </div>
+
+          <div class="form-row">
+            <label for="imageInput">Recipe image</label>
+            <input id="imageInput" name="image" type="file" accept="image/*" />
+          </div>
+
+          <button type="submit" class="primary-button">Add Recipe</button>
+        </form>
+      </article>
+
+      <article class="recipe-list-panel">
+        <div class="list-header">
+          <h2>Your recipe collection</h2>
+          <p>Recipes are saved locally so you can keep building while we prepare your cloud backend.</p>
+        </div>
+        <div id="recipesContainer" class="recipe-grid" aria-live="polite"></div>
+      </article>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

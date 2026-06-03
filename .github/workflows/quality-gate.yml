@@ -1,0 +1,32 @@
+name: Quality Gate
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  quality-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install pytest
+        run: pip install pytest
+
+      - name: Syntax check — Lambda files
+        run: |
+          python -m py_compile backend/create_recipe/lambda_function.py
+          python -m py_compile backend/list_recipes/lambda_function.py
+          python -m py_compile backend/delete_recipe/lambda_function.py
+          python -m py_compile backend/get_upload_url/lambda_function.py
+
+      - name: Run unit tests
+        run: pytest backend/
+
+      - name: Syntax check — frontend JS
+        run: node --check frontend/app.js || true

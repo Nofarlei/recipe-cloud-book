@@ -1,0 +1,62 @@
+name: Deploy Backend
+
+on:
+  push:
+    branches: [main]
+    paths: [backend/**]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Deploy create_recipe
+        run: |
+          cd backend/create_recipe
+          zip /tmp/create_recipe.zip lambda_function.py
+          aws lambda update-function-code \
+            --function-name ${{ secrets.CREATE_RECIPE_LAMBDA_NAME }} \
+            --zip-file fileb:///tmp/create_recipe.zip
+          aws lambda wait function-updated \
+            --function-name ${{ secrets.CREATE_RECIPE_LAMBDA_NAME }}
+
+      - name: Deploy list_recipes
+        run: |
+          cd backend/list_recipes
+          zip /tmp/list_recipes.zip lambda_function.py
+          aws lambda update-function-code \
+            --function-name ${{ secrets.LIST_RECIPES_LAMBDA_NAME }} \
+            --zip-file fileb:///tmp/list_recipes.zip
+          aws lambda wait function-updated \
+            --function-name ${{ secrets.LIST_RECIPES_LAMBDA_NAME }}
+
+      - name: Deploy delete_recipe
+        run: |
+          cd backend/delete_recipe
+          zip /tmp/delete_recipe.zip lambda_function.py
+          aws lambda update-function-code \
+            --function-name ${{ secrets.DELETE_RECIPE_LAMBDA_NAME }} \
+            --zip-file fileb:///tmp/delete_recipe.zip
+          aws lambda wait function-updated \
+            --function-name ${{ secrets.DELETE_RECIPE_LAMBDA_NAME }}
+
+      - name: Deploy get_upload_url
+        run: |
+          cd backend/get_upload_url
+          zip /tmp/get_upload_url.zip lambda_function.py
+          aws lambda update-function-code \
+            --function-name ${{ secrets.GET_UPLOAD_URL_LAMBDA_NAME }} \
+            --zip-file fileb:///tmp/get_upload_url.zip
+          aws lambda wait function-updated \
+            --function-name ${{ secrets.GET_UPLOAD_URL_LAMBDA_NAME }}

@@ -291,3 +291,66 @@ body {
     padding: 18px;
   }
 }
+
+/* ─── App header + user badge ─────────────────────────────────────────────── */
+
+.app-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 0 16px;
+}
+
+.user-badge {
+  font-size: 0.9rem;
+  color: #6d5c52;
+}
+
+.user-badge strong {
+  color: #3b2f29;
+}
+
+.user-badge .change-link {
+  color: #ad7f5e;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.user-badge .change-link:hover {
+  text-decoration: underline;
+}
+
+/* ─── Email modal ──────────────────────────────────────────────────────────── */
+
+.email-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(43, 33, 26, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.email-modal[hidden] {
+  display: none;
+}
+
+.email-modal-card {
+  background: #fffaf5;
+  border-radius: 28px;
+  padding: 40px 36px;
+  width: min(480px, 90vw);
+  box-shadow: 0 40px 80px rgba(86, 64, 51, 0.22);
+}
+
+.email-modal-card h2 {
+  margin: 0 0 10px;
+  color: #3b2f29;
+  font-size: 1.8rem;
+}
+
+.modal-description {
+  margin: 0 0 24px;
+  color: #64594f;
+}

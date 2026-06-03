@@ -7,7 +7,24 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div id="emailModal" class="email-modal" role="dialog" aria-modal="true" aria-labelledby="emailModalTitle" hidden>
+    <div class="email-modal-card">
+      <p class="eyebrow">Recipe Cloud Book</p>
+      <h2 id="emailModalTitle">Welcome</h2>
+      <p class="modal-description">Enter your email to identify your recipe collection.</p>
+      <div class="form-row">
+        <label for="emailInput">Email address</label>
+        <input id="emailInput" type="email" placeholder="you@example.com" autocomplete="email" />
+      </div>
+      <button id="emailContinueBtn" class="primary-button">Continue</button>
+    </div>
+  </div>
+
   <main class="app-shell">
+    <header class="app-header">
+      <div id="userBadge" class="user-badge" aria-live="polite"></div>
+    </header>
+
     <section class="hero-panel">
       <div class="hero-copy">
         <p class="eyebrow">Recipe Cloud Book</p>
@@ -67,12 +84,12 @@
       <article class="recipe-list-panel">
         <div class="list-header">
           <h2>Your recipe collection</h2>
-          <p>Recipes are saved locally so you can keep building while we prepare your cloud backend.</p>
+          <p id="listStatus"></p>
         </div>
         <div id="recipesContainer" class="recipe-grid" aria-live="polite"></div>
       </article>
     </section>
   </main>
-  <script src="app.js"></script>
+  <script type="module" src="app.js"></script>
 </body>
 </html>

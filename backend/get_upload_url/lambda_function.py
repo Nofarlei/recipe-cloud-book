@@ -18,7 +18,7 @@ def lambda_handler(event, context):
         return {"statusCode": 400, "body": json.dumps({"error": "Missing filename query parameter"})}
 
     recipe_id = str(uuid.uuid4())
-    image_key = f"{email}/{recipe_id}/{filename}"
+    image_key = f"images/{email}/{recipe_id}/{filename}"
 
     s3 = boto3.client("s3")
     upload_url = s3.generate_presigned_url(

@@ -11,6 +11,14 @@ A serverless personal recipe manager — save, search, and manage recipes with i
 - Yarden Biton
 - Nofar Leibovich
 
+## Features
+
+- Email-based identity — no passwords, recipes are scoped to your email address
+- Add recipes with name, category, prep time, ingredients, and instructions
+- Upload a recipe image (stored in S3 via pre-signed URL, served via CloudFront)
+- Browse and search recipes by name or category
+- Delete recipes
+
 ## Architecture
 
 ```

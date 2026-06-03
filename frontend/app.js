@@ -189,7 +189,7 @@ function renderRecipes(items, query = '') {
     card.className = 'recipe-card';
 
     const imageHtml = recipe.imageKey
-      ? `<img src="${CLOUDFRONT_BASE}/images/${encodeURIComponent(recipe.imageKey)}" alt="Recipe image for ${escapeHtml(recipe.name)}" />`
+      ? `<img src="${CLOUDFRONT_BASE}/images/${recipe.imageKey.split('/').map(encodeURIComponent).join('/')}" alt="Recipe image for ${escapeHtml(recipe.name)}" />`
       : '';
 
     card.innerHTML = `

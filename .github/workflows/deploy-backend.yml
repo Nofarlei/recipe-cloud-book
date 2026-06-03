@@ -22,6 +22,19 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           aws-region: ${{ secrets.AWS_REGION }}
 
+      - name: Configure CORS on images bucket
+        run: |
+          aws s3api put-bucket-cors \
+            --bucket ${{ secrets.IMAGES_BUCKET_NAME }} \
+            --cors-configuration '{
+              "CORSRules": [{
+                "AllowedHeaders": ["*"],
+                "AllowedMethods": ["PUT", "GET", "HEAD"],
+                "AllowedOrigins": ["https://rcb.proj.rotem.click"],
+                "ExposeHeaders": ["ETag"]
+              }]
+            }'
+
       - name: Deploy create_recipe
         run: |
           cd backend/create_recipe

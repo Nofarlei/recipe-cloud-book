@@ -64,6 +64,39 @@ Three GitHub Actions workflows run automatically on every push to `main`:
 
 All workflows authenticate via OIDC — no long-lived AWS keys stored in secrets.
 
+## Repository Structure
+
+```
+recipe-cloud-book/
+├── backend/
+│   ├── conftest.py                      # pytest module isolation fixture
+│   ├── create_recipe/
+│   │   ├── lambda_function.py           # POST /recipes — saves recipe to DynamoDB
+│   │   └── test_lambda_function.py      # 4 unit tests
+│   ├── list_recipes/
+│   │   ├── lambda_function.py           # GET /recipes — queries DynamoDB by email
+│   │   └── test_lambda_function.py      # 3 unit tests
+│   ├── delete_recipe/
+│   │   ├── lambda_function.py           # DELETE /recipes/{id} — removes from DynamoDB + S3
+│   │   └── test_lambda_function.py      # 3 unit tests
+│   └── get_upload_url/
+│       ├── lambda_function.py           # GET /recipes/upload-url — generates pre-signed S3 URL
+│       └── test_lambda_function.py      # 4 unit tests
+├── frontend/
+│   ├── index.html                       # Single-page app shell + email modal
+│   ├── app.js                           # UI logic, identity, rendering, search
+│   ├── api.js                           # All API calls (list, create, delete, upload)
+│   └── style.css                        # All styles
+├── .github/
+│   └── workflows/
+│       ├── quality-gate.yml             # Runs on every push/PR — syntax checks + 14 tests
+│       ├── deploy-backend.yml           # Runs on main + backend/** — deploys 4 Lambdas
+│       └── deploy-frontend.yml          # Runs on main + frontend/** — syncs S3 + invalidates CDN
+├── PRD.md                               # Product Requirements Document
+├── README.md                            # This file
+└── pytest.ini                           # pytest configuration (importlib mode)
+```
+
 ## Development Setup
 
 **Prerequisites:** Python 3.12, pytest, boto3
